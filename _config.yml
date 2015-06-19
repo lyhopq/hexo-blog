@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: 沧海一粟
+subtitle: 在知识的海洋中翱翔
 description:
-author: John Doe
-language:
+author: Lyh
+language: zh-CN
 timezone:
 
 # URL
@@ -52,7 +52,7 @@ tag_map:
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
+date_format: MMM D YYYY
 time_format: HH:mm:ss
 
 # Pagination
