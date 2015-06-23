@@ -5,7 +5,7 @@
 # Site
 title: 沧海一粟
 subtitle: 在知识的海洋中翱翔
-description:
+description: C/C++ | Python 
 author: Lyh
 language: zh-CN
 timezone:
@@ -53,7 +53,7 @@ tag_map:
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
 date_format: MMM D YYYY
-time_format: HH:mm:ss
+time_format: H:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -64,10 +64,13 @@ pagination_dir: page
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 theme: modernist
+plugins:
+- hexo-generator-feed
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/lyhopq/lyhopq.github.io.git
+  #repository: https://github.com/lyhopq/lyhopq.github.io.git
+  repository: git@github.com:lyhopq/lyhopq.github.io.git
   branch: master

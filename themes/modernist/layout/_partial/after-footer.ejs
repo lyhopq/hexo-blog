@@ -1,4 +1,4 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="//lib.sinaapp.com/js/jquery/1.8/jquery.min.js"></script>
 <script src="<%- config.root %>js/scale.fix.js"></script>
 <script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
 <script src="<%- config.root %>js/gallery.js"></script>
@@ -17,18 +17,45 @@
 </script>
 <% } else if (theme.duoshuo_shortname){ %>
 <script type="text/javascript">
-  var duoshuoQuery = { short_name: '<%= theme.duoshuo_shortname %>' };
+var duoshuoQuery = {short_name:"<%= theme.duoshuo_shortname %>"};
   (function() {
     var ds = document.createElement('script');
-    ds.type = 'text/javascript';
-    ds.async = true;
-    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
     ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
   })();
 </script>
 <% } %>
-
+<% if (theme.gotop.enable || theme.duoshuo_shortname){ %>
+<div id="rightfix" style="display:none;">
+<% if (theme.duoshuo_shortname && page.comments){ %>
+<a href="#comment" id="gocomm" class="fix_btn" title="提问/评论"><i><i></i></i></a>
+<% } %>
+<% if (theme.gotop.enable){ %>
+<a href="javascript:void(0)" id="gotop" class="fix_btn" onclick="gotop();" title="回到顶部"><i></i></a>
+<script>
+  function gotop(){
+    $('html,body').animate({
+        scrollTop : '0px'
+      }, <%= theme.gotop.speed %>);
+  }
+  $(function(){
+    _rightfix = $('#rightfix');
+    $(window).scroll(function(){
+      $sollTop = document.documentElement.scrollTop + document.body.scrollTop;
+      if($sollTop > <%= theme.gotop.soll_top %>){
+        _rightfix.show();
+      }else{
+        _rightfix.hide();
+      }
+    });
+  });
+</script>
+<% } %>
+</div>
+<% } %>
 <% if (theme.fancybox){ %>
 <link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
 <script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>

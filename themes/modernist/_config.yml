@@ -1,24 +1,29 @@
 menu:
-  首页: /
-  归档: /archives
-  关于: /about
+  Home: /
+  Archives: /archives
+rss: /atom.xml
 
-excerpt_link: 阅读全文
-archive_yearly: false
 archive_date_format: MMM DD
-
-widgets:
-  - category
-#  - tag
-  - tagcloud
-  - recent_posts
-#  - blogroll
-
-
 fancybox: true
 
-duoshuo_shortname: lyhopq
+widgets:
+- category
+- tagcloud
+- recent_posts
 
-favicon: /favicon.ico
+widgets_pos_right: 
+
+share:
+  enable: false
+  qq: false
+
+gotop:
+  enable: true
+  soll_top: 350
+  speed: 800
+
+duoshuo_shortname: 
+
 google_analytics:
-rss:
+baidu_tongji: false
+favicon: /favicon.ico
