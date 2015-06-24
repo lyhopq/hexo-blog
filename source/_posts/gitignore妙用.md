@@ -2,7 +2,7 @@
 title: gitignore妙用
 date: 2013-10-20 15:20:16
 categories: Git
-tags: [Git,gitignore]
+tags: [Git]
 
 ---
 
