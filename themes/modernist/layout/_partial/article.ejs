@@ -10,6 +10,7 @@
     <%- partial('post/gallery') %>
   <% } %>
   <div class="entry">
+    <%- toc(post.content, {list_number: false}) %>
     <% if (post.excerpt && index){ %>
       <%- post.excerpt %>
     <% } else { %>
