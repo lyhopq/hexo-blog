@@ -71,7 +71,7 @@ plugins:
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  #repository: git@github.com:lyhopq/lyhopq.github.io.git
-  #branch: master
-  repository: git@gitcafe.com:lyh/lyh.git
-  branch: gitcafe-pages
+  repository: git@github.com:lyhopq/lyhopq.github.io.git
+  branch: master
+  #repository: git@gitcafe.com:lyh/lyh.git
+  #branch: gitcafe-pages
