@@ -22,8 +22,8 @@ gotop:
   soll_top: 350
   speed: 800
 
-duoshuo_shortname: 
+duoshuo_shortname: lyhopq
 
 google_analytics:
-baidu_tongji: false
+baidu_tongji: true
 favicon: /favicon.ico

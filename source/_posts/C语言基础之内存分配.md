@@ -5,8 +5,6 @@ tags: [内存分配]
 
 ---
 
-# C语言基础之内存分配
-
 ```c
 // main.c
 #include <stdio.h>
