@@ -1,7 +1,7 @@
 ---
 title: gitignore妙用
 date: 2013-10-20 15:20:16
-
+categories: Git
 tags: [Git,gitignore]
 
 ---
@@ -22,7 +22,8 @@ tags: [Git,gitignore]
     例如：
 
     !/target/*.h 表示target文件夹目录下所有的.h文件将被跟踪
-  
+
+ <!-- more --> 
 
 还有就是，`gitignore`是从上到下逐行匹配的，因此`.gitignore`文件的编写原则就是：
 
