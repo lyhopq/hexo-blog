@@ -9,7 +9,7 @@ tags: [Python, C++, DP]
 > 将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。
 
 ## 类图：
-![此处输入图片的描述][1]
+![][1]
 
 ## 类型：创建型
 
@@ -161,7 +161,8 @@ thick foot
 ## Tips:
 `创建者模式`的`Python`实现没有什么特点，在这就不在赘述了。
 
-![此处输入图片的描述][1]
+![][2]
 
 
-  [1]: http://www.tgmj.net/images/cp441/1.gif
+  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch9.%e5%bb%ba%e9%80%a0%e8%80%85%e6%a8%a1%e5%bc%8f.png
+  [2]: http://www.tgmj.net/images/cp441/1.gif

@@ -9,7 +9,7 @@ tags: [Python, C++, DP]
 > 在不破坏封装性的前提下捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后可以将对象恢复到原先保存的状态。
 
 ## 类图：
-![此处输入图片的描述][1]
+![][1]
 
 ## 类型：行为型
 
@@ -148,8 +148,8 @@ middle
 
 `备忘录模式`的`Python`实现没有什么特点，在这就不在赘述了。
 
-![此处输入图片的描述][2]
+![][2]
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch14.%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F.png
+  [1]: http://78rbbi.com1.z0.glb.clouddn.com/o_ch14.备忘录模式.png
   [2]: http://news.5068.com/upfiles/allimg/120323/1A421K21-0.jpg

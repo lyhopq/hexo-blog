@@ -9,7 +9,7 @@ tags: [Python, C++, DP]
 > 动态地给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。
 
 ## 类图：
-![此处输入图片的描述][1]
+![][1]
 
 ## 类型：结构型
 
@@ -187,4 +187,4 @@ finery = dress('T shirts')(dress('Big Trouser')(finery))
 ```
 Python的Decorator就是这么简单，没有什么复杂的东西，你也不需要了解过多的东西，使用起来就是那么自然、简洁。
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch3.%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F.png
+  [1]: http://78rbbi.com1.z0.glb.clouddn.com/o_ch3.装饰模式.png

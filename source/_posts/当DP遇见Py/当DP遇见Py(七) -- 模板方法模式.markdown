@@ -9,7 +9,7 @@ tags: [Python, C++, DP]
 > 定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变一个算法的结构的情况下重新定义该算法的某些特定步骤。
 
 ## 类图：
-![此处输入图片的描述][1]
+![][1]
 
 ## 类型：行为型
 
@@ -165,10 +165,10 @@ if __name__ == '__main__':
 `模板方法`的`Python`实现没有什么特点，在这就不在赘述了。
 
 
-![此处输入图片的描述][2]
+![][2]
 
 > 无处不“模板”！
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch7.%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F.png
+  [1]: http://78rbbi.com1.z0.glb.clouddn.com/o_ch7.模板方法模式.png
   [2]: http://img5.imgtn.bdimg.com/it/u=581775908,2307964083&fm=21&gp=0.jpg

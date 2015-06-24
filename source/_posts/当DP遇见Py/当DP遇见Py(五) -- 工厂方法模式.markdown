@@ -9,7 +9,7 @@ tags: [Python, C++, DP]
 > 定义一个用于创建对象的接口，让子类决定实例化哪一个类。这使得一个类的实例化延迟到其子类。
 
 ## 类图：
-![此处输入图片的描述][1]
+![][1]
 
 ## 类型：创建型
 
@@ -137,7 +137,7 @@ if __name__ == '__main__':
 
 再来看一下代码，`StuFactory`和`VolFactory`不需要继承`IFactory`，它们只需要实现`createLeiFeng()`这个方法就好了。任何实现了`createLeiFeng()`这个方法的对象，都可以被称作`工厂鸭`。(*^__^*) 
 
-![此处输入图片的描述][2]    你丫是在说我么？
+![][2]    你丫是在说我么？
 
 
   [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch5.%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.png
