@@ -16,6 +16,8 @@ photos:
 
 现代C++直接受Python的影响吗？或者仅仅是Python在C++之前使用了这些设计？由你来裁断。
 
+<!-- more -->
+
 ## Literals
 
 Python在2008年引入了[二进制字面值](https://docs.python.org/dev/whatsnew/2.6.html#pep-3127-integer-literal-support-and-syntax)。现在[`C++14`拥有了它们](http://en.cppreference.com/w/cpp/language/integer_literal)。
