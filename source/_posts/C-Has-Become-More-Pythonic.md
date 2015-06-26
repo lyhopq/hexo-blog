@@ -10,11 +10,11 @@ photos:
 译自：http://preshing.com/20141202/cpp-has-become-more-pythonic
 
 
-近些年C++ 发生了很多变化。最近的两个版本，`C++11` 和 `C++14`引入了如此多的特性，正如`Bjarne Stroustrup`（C++之父）所说的一样：[“它感觉像一门新的语言”](http://www.stroustrup.com/C++11FAQ.html#think)。
+近些年C++ 发生了很多变化。最新的两个版本，`C++11` 和 `C++14`引入了如此多的新特性，正如`Bjarne Stroustrup`所说的：[“它感觉就像一门新的语言”](http://www.stroustrup.com/C++11FAQ.html#think)。
 
-确实是这样。现代C++适合于一种全新的编程风格——使我不得不注意到它更有种`Python`的味道。基于range的`for`循环、类型推导、vector和map的初始化、lambda表达式。随着你更深入的探索现代C++，你会发现更多Python的痕迹在里面。
+确实是这样。现代C++形成了一种全新的编程风格——使我不得不注意到它带有的更多`Python`的味道。基于range的`for`循环、类型推导、vector和map的初始化、lambda表达式。随着你更深入的探索现代C++，你越会发现Python的痕迹在里面。
 
-现代C++直接受Python的影响吗？或者仅仅是Python在C++之前使用了这些设计？由你来裁断。
+现代C++直接受Python的影响吗？或者仅仅是Python在C++之前使用了这些设计？由你来判断。
 
 <!-- more -->
 
@@ -187,7 +187,7 @@ def foo(*args):
 triple = foo(5,6,7)
 ```
 
-`C++11`添加了对[参数包](http://www.stroustrup.com/C++11FAQ.html#variadic-templates)的支持。不同于C风格的可变参数，它和Python的任意参数列表很像，参数包有一个名字来代表整个参数序列。一个重要的区别在于：C++参数包在运行时并不表现为一个单一的对象。你只有在编译时通过模板元编程来操控它们。
+`C++11`添加了对[参数包](http://www.stroustrup.com/C++11FAQ.html#variadic-templates)的支持。不同于C风格的可变参数，它和Python的任意参数列表很像，参数包有一个名字来代表整个参数序列。一个重要的区别在于：C++参数包在运行时并不表现为一个单一的对象。你只有通过模板元编程技术在在编译时来操纵它们。
 
 ```C++
 template <typename... T> auto foo(T&&... args) {
@@ -197,6 +197,6 @@ template <typename... T> auto foo(T&&... args) {
 auto triple = foo(5,6,7);
 ```
 
-并不是所有`C++11`和`C++14`的新特性都是在模仿Python的功能，但是看起来似乎很多。Python被认为是一个友好的、平易近人的编程语言。或许它的一些魅力已经被擦掉？
+并非所有`C++11`和`C++14`的新特性都借鉴于Python，但其中很大一部分看起来似乎如此。Python被认为是一个友好的、平易近人的编程语言，或许它的一些魅力已经开始暗淡了？
 
-你觉得如何？新特性成功使得C++更简单、更平易近人或者更富有表达力？
+你觉得如何？C++的这些新特性是否使C++变得更简单、更平易近人或者更富有表达力呢？
