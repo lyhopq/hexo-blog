@@ -173,7 +173,7 @@ auto result = std::vector<int>{};
 std::copy_if(mylist.begin(), myList.end(), std::back_inserter(result), [](int x){return x >= 0;});
 ```
 
-其它C++[算法](http://en.cppreference.com/w/cpp/algorithm)模仿了Python内建的`transform`，`any_of`，`all_of`，`min`和`max`函数。即将到来的[rangs提议](https://github.com/ericniebler/range-v3/blob/master/doc/D4128.md)将更进一步的简化这些表达式。
+其它C++[算法](http://en.cppreference.com/w/cpp/algorithm)借鉴了Python内建的`transform`，`any_of`，`all_of`，`min`和`max`函数。即将到来的[rangs提议](https://github.com/ericniebler/range-v3/blob/master/doc/D4128.md)将更进一步的简化这些表达式。
 
 ## Parameter Packs
 
