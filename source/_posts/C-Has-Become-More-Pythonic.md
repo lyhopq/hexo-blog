@@ -1,6 +1,6 @@
 title: C++ Has Become More Pythonic
 date: 2015-06-25 19:14:33
-categories: C/C++
+categories: [C/C++,翻译]
 tags: [C++11,Python]
 photos:
 - http://preshing.com/images/pythonic_cpp.png
