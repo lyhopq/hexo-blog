@@ -20,6 +20,8 @@ tags: [C++11]
 - Like Strunk & White，本文故意专注于简洁的总结指导。不是为了提供详尽的原理阐述和pro/con分析；这将在其它的文章中探究。
 - 这是一份保持更新的文档。详见最后随时间变化和添加的列表。
 
+<!-- more -->
+
 ## auto
 
 只要有可能就使用`auto`。它是有用的，原因有两个。首先，最明显的是它是一种便利，可以使我们避免重复一个类型的名称，即使我们已经阐明而且编译器已经知道了。
@@ -54,7 +56,7 @@ auto x = [](int i) { return i > 42; };
 
 始终使用智能指针和*non-owing*原始指针。绝不使用*owing*原始指针和`delete`，在罕见的情况下除外，需要实现你自己的底层数据结构（即使如此，也要在类边界里面保持良好的封装）。
 
-如果你知道你们是另外一个对象的唯一拥有者，使用`unique_ptr`来明确唯一所有权。"`new T`"表达式应该立即初始化拥有它的另一个对象，通常使用`unique_ptr`。一个典型的例子是`Pimpl惯用手法`（见 [GotW #100](http://herbsutter.com/gotw/_100)：
+如果你知道你是另外一个对象的唯一拥有者，就使用`unique_ptr`来明确唯一所有权。"`new T`"表达式应该立即初始化拥有它的另一个对象，通常使用`unique_ptr`。一个典型的例子是`Pimpl惯用手法`（见 [GotW #100](http://herbsutter.com/gotw/_100)）：
 
 ```C++
 // C++11 Pimpl idiom: header file
@@ -161,3 +163,133 @@ sort(&a[0], &a[0] + sizeof(a)/sizeof(a[0]));
 sort(begin(v), end(v));
 sort(begin(a), end(a));
 ```
+
+## Lambda Functions and Algorithms
+
+Lambda表达式是一个可以改变游戏规则的改变，它会经常性的改变你写代码的方式，使之更优雅和更快速。Lambda表达式使得现有的`STL`算法的可用性提升了100倍。更新的C++的库的设计越来越多的假设Lambda表达式是可用的（例：`PPL`），而且某些甚至要求你编写Lambda表达式来使用库（例：`C++ AMP`）。
+
+这是一个简单的例子：在`v`中找到第一个大于`x`并小于`y`的元素。在`C++11`中，最简单的和最整洁的代码是使用标准算法。
+
+```C++
+// C++98: write a naked loop (using std::find_if is impractically difficult)
+for(; i != v.end(); ++i) {
+  if(*i > x && *i < y) break;
+}
+
+// C++11: use std::find_if
+auto i = find_if(begin(v), end(v), [=](int i) {return i > x && i < y;});
+```
+
+你是否想要一个循环或类似的语言特性（但语言并没有提供）？并不需要付出多大的努力，只要把它写成一个模板函数（算法库），并利用lambda表达式你总是可以如同使用语言特性一样便利的使用它。而且具有更大的灵活性，因为它真的只是一个库，而不是一个天生的语言特性。
+
+```C++
+// C#
+lock(mut_x) {
+  ... use x ...
+}
+
+// C++11 without lambdas: already nice, and more flexible (e.g., can use timeouts, other options)
+{
+  lock_guard<mutex> hold {mut_x};
+  ... use x ...
+}
+
+// C++11 with lambdas, and a helper algorithm: C# syntax in C++
+// Algorithm: template<typename T> void lock(T& t, F f) {lock_guard hold(t); f();}
+lock(mut_x, [&]{
+  ... use x ...
+});
+```
+
+要熟悉lambda表达式，你将会大量的使用它们，不仅仅是在C++中--它们已经在几种流行的主要语言中被支持和广泛使用。一个很好的起点是我在`PDC 2010`上的演讲：[Lambdas, Lambdas Everywhere](http://herbsutter.com/2010/10/30/pdc-languages-panel-andshortened-lambdas-talk)。
+
+## Move / &&
+
+`move`是作为`copy`优化的一个最好的思想，虽然它也可以做其他的事情，如：perfect forwarding。
+
+`move`语义使我们设计`API`的方式发生了改变。我们将会设计出更多的返回值对象的接口。
+
+```C++
+// C++98: alternatives to avoid copying
+vector<int>* make_big_vector(); // option 1: return by pointer: no copy, but don't forget to delete
+...
+vector<int>* result = make_big_vector();
+
+void make_big_vector(vector<int>& out); // option2: pass out by reference: no copy, but caller needs a named object
+...
+vector<int> result;
+make_big_vector(result);
+
+
+// C++11: move
+vector<int> make_big_vector(); // usuall sufficient for 'caller-allocated out' situations
+...
+auto result = make_big_vector(); // guaranteed not to copy the vector
+```
+
+当你做一些比`copy`更有效率的事情的时候，为你的类型启用`move`语义。
+
+## Uniform Initialization and Initializer Lists
+
+没有改变的是：当初始化一个局部变量，且它的类型是非`POD`或`auto`时，继续使用熟悉的 `=` 语法，而不用额外的`{ }`。
+
+```C++
+// C++98 or C++11
+int a = 42;      // still fine, as always
+
+
+// C++11
+auto x = begin(v); // no narrowing or non-initialization is possible
+```
+
+其它情况下，特别是你以前在构造对象时经常使用的`( )`，应该使用`{ }`代替。使用大括号可以避免几个潜在的问题：你不会意外的获得收缩类型转换（例：`flot`到`int`）；你不会偶尔不小心拥有未初始化的`POD`成员变量或数组；你会避免`C++98`给你带来的偶然惊喜：由于在C++语法中的声明某凌两可（Scott Meyers 的一句名言："C++'s most vexing parse."），你实际上声明了一个函数而不是一个变量，但还是能通过编译：。在新的风格中没有任何的烦恼。
+
+```C++
+// C++98
+rectangle w(origin(), extents());  // oops, declares a function, if origin and extents are types
+complex<double> c(2.71828, 3.14159);
+int a[] = {1,2,3,4};
+vector<int> v;
+for(int i = 1; i <= 4; ++i) v.push_back(i);
+
+// C++11
+rectangle w {origin(), extents()};
+complex<double> c {2.71828, 3.14159};
+int a[] {1,2,3,4};
+vector<int> v {1,2,3,4};
+```
+
+新的`{ }`语法在每个地方都工作的很好：
+
+```C++
+// C++98
+X::X(/*...*/): mem1(init1), mem2(init2, init3) {/*...*/}
+
+
+// C++11
+X::X(/*...*/): mem1{init1}, mem2{init2, init3} {/*...*/}
+```
+
+最后，有些时候只是为了方便，在给函数传递参数是可以不需要临时的类型名。
+
+```C++
+void draw_rect(rectangle);
+
+// C++98
+draw_rect(rectangle(myobj.origin, selection.extents));
+
+
+// C++11
+draw_rect({myobj.origin, selection.extents});
+```
+
+我不使用大括号的唯一地方是在对非`POD`变量进行简单初始化的时候，如：`auto x = begin(v);`，不然它会使代码将变得不必要的丑陋。因为我知道它是一个类类型，所以我知道我不需要担心偶然的收缩类型转换，而且现代的编译器已经例行的执行优化以删去额外的拷贝（或额外的移动，如果类型启用了`move`）。
+
+## And More
+
+现代C++还有[更多特性](http://www2.research.att.com/~bs/C++0xFAQ.html)。在将来，我打算写一些更深入的文章，关于`C++11`的这些和其它的我们要去了解和喜欢的特性。
+
+但是现在，这里是我们必须要知道的特性列表。这些特性形成的核心，定义了现代C++的风格，这使得C++代码看起来和执行起来确实如此；你会发现在你所将要看到或编写的每一段现代C++代码中会普遍的被使用；使得现代C++是一门整洁、安全和快速的语言，在未来的许多年我们的行业将会继续严重的依赖于它。
+
+
+
