@@ -12,7 +12,7 @@ photos:
 
 近些年C++ 发生了很多变化。最新的两个版本，`C++11` 和 `C++14`引入了如此多的新特性，正如`Bjarne Stroustrup`所说的：[“它感觉就像一门新的语言”](http://www.stroustrup.com/C++11FAQ.html#think)。
 
-确实是这样。现代C++形成了一种全新的编程风格——使我不得不注意到它带有的更多`Python`的味道。基于range的`for`循环、类型推导、vector和map的初始化、lambda表达式。随着你更深入的探索现代C++，你越会发现Python的痕迹在里面。
+确实是这样。现代C++形成了一种全新的编程风格——使我不得不注意到它带有的更多`Python`的味道。基范围的`for`循环、类型推导、vector和map的初始化、lambda表达式。随着你更深入的探索现代C++，你越会发现Python的痕迹在里面。
 
 现代C++直接受Python的影响吗？或者仅仅是Python在C++之前使用了这些设计？由你来判断。
 
@@ -41,7 +41,7 @@ for x in myList:
     print(x)
 ```
 
-与此同时，将近30年，C++只支持C风格的`for`循环。最终，在`C++11`中，[基于range的`for`循环](http://en.cppreference.com/w/cpp/language/range-for)被添加：
+与此同时，将近30年，C++只支持C风格的`for`循环。最终，在`C++11`中，[基于范围的`for`循环](http://en.cppreference.com/w/cpp/language/range-for)被添加：
 
 ```C++
 for (int x : myList)
@@ -57,26 +57,26 @@ x = "Hello world!"
 print(x)
 ```
 
-另一方面，C++不是动态类型的，它是静态类型语言。但是从`C++11`使用[`auto'](http://en.cppreference.com/w/cpp/language/auto)关键字来进行类型推导以来，你能够看起来像动态类型一样来编写代码：
+另一方面，C++不是动态类型的，它是静态类型语言。但是从`C++11`使用[`auto'](http://en.cppreference.com/w/cpp/language/auto)关键字进行类型推导以来，你能够看起来像动态类型一样来编写代码：
 
 ```C++
 auto x = "Hello world!";
 std::cout << x;
 ```
 
-当你调用那些被好几种类型重载的函数，例如`std::ostream::operator<<`，或模板函数，C++就更为相似一种动态类型的语言。`C++14`更进一步扩充了对`auto`关键字的支持，增加了对`auto`[返回值](http://en.wikipedia.org/wiki/C%2B%2B14#Function_return_type_deduction)和
+当你调用那些被好几种类型重载的函数，例如`std::ostream::operator<<`，或模板函数的时候，C++就更表现出动态类型语言的特征。`C++14`更进一步扩充了对`auto`关键字的支持，增加了对`auto`[返回值](http://en.wikipedia.org/wiki/C%2B%2B14#Function_return_type_deduction)和
 lambda函数使用`auto`[参数](http://en.wikipedia.org/wiki/C%2B%2B14#Generic_lambdas)的支持。
 
 ## Tuples
 
-Python几乎从开始就支持[`tuples`](https://docs.python.org/release/1.4/ref/ref3.html)。当你需要把几个值打包在一起的时候表现的非常友好，而不需要命名一个类。
+Python几乎从开始就支持[`tuple`](https://docs.python.org/release/1.4/ref/ref3.html)。当你需要把几个值打包在一起的时候表现的非常友好，而不需要命名一个类。
 
 ```Python
 triple = (5,6,7)
 print(triple[0])
 ```
 
-C++在`C++11`中把`tuple`添加到了标准库中。在[这一提议](http://open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1403.pdf)中甚至提到从Python中得到的灵感：
+C++在`C++11`中把`tuple`添加到了标准库中。在[这一提议](http://open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1403.pdf)中甚至提到是从Python中得到的灵感：
 
 ```C++
 auto triple = std::make_tuple(5,6,7);
@@ -104,7 +104,7 @@ myList = [6,3,7,8]
 myList.append(5);
 ```
 
-C++中的`std::vetcor`是Python列表的最相近的模仿。在`C++11`中新添加[统一初始化](http://www.stroustrup.com/C++11FAQ.html#init-list)，现在也可以让我们使用单一的表达式来创建它们：
+C++中的`std::vetcor`是Python列表的最相近的模仿。在`C++11`中新添加了[统一初始化](http://www.stroustrup.com/C++11FAQ.html#init-list)，现在也可以让我们使用单一的表达式来创建它们：
 
 ```C++
 auto myList = std::vector<int>{6,3,7,8};
@@ -160,7 +160,7 @@ std::cout << adder(5)(5);
 
 ## Standard Algorithms
 
-Python的内建`filter`函数使你从列表有选择性的拷贝元素（[列表推导](https://docs.python.org/3/whatsnew/2.0.html#list-comprehensions)是首选）：
+Python的内建`filter`函数使你从列表有选择性的拷贝元素（但推荐使用[列表推导](https://docs.python.org/3/whatsnew/2.0.html#list-comprehensions)）：
 
 ```Python
 result = filter(lambda x: x >= 0, myList)
@@ -187,7 +187,7 @@ def foo(*args):
 triple = foo(5,6,7)
 ```
 
-`C++11`添加了对[参数包](http://www.stroustrup.com/C++11FAQ.html#variadic-templates)的支持。不同于C风格的可变参数，它和Python的任意参数列表很像，参数包有一个名字来代表整个参数序列。一个重要的区别在于：C++参数包在运行时并不表现为一个单一的对象。你只有通过模板元编程技术在在编译时来操纵它们。
+`C++11`添加了对[参数包](http://www.stroustrup.com/C++11FAQ.html#variadic-templates)的支持。不同于C风格的可变参数，它和Python的任意参数列表很像，参数包有一个名字来代表整个参数序列。一个重要的区别在于：C++的参数包在运行时并不表现为一个单一的对象。你只有通过模板元编程技术在在编译时来操纵它们。
 
 ```C++
 template <typename... T> auto foo(T&&... args) {
