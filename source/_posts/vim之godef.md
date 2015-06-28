@@ -6,12 +6,14 @@ tags: [vim,Golang, godef]
 
 最近在研究Golang，作为Vimer当然要配置vim来建立Go的工作环境。对于一门语言的初学者来说，学习别人的代码，能够对代码中的符号进行自动跳转是比较重要的。安装godef和相应插件，就可以实现这个功能。
 
-### 安装步骤：
+安装步骤
+--------
 
 * `go get code.google.com/p/rog-go/exp/cmd/godef`
 * `git clone https://github.com/dgryski/vim-godef.git ~/.vim/bundle/vim-godef`
 
-### 使用方法：
+使用方法
+---------
 
 在Go代码文件，把光标移到一个函数或变量上，在命令模式下输入`gd`。vim会显示这个函数的定义。详细配置参见[vim-godef](https://github.com/dgryski/vim-godef)。
 
@@ -61,4 +63,4 @@ end
 
     let g:godef_split=2
 
-# 搞定！
+搞定！
