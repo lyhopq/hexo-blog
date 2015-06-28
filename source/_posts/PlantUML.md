@@ -39,7 +39,7 @@ tags: [PlantUML,UML,ArchLinux,shell]
     
         java -jar ~/.local/lib/plantuml.jar -tpng test.uml
     
-    ![UML类图示例]({{urls.media}}/UML/test.png)
+    ![UML类图示例](http://78rbbi.com1.z0.glb.clouddn.com/test.png)
     
 4. 为了使用方便，写了一个shell脚本
 
@@ -144,7 +144,7 @@ end note
 @enduml
 ```
 
-<img src="{{urls.media}}/UML/ticket.png" alt="" width="80%">
+<img src="http://78rbbi.com1.z0.glb.clouddn.com/ticket.png" alt="" width="80%">
 
 
 [1]: http://plantuml.sourceforge.net
