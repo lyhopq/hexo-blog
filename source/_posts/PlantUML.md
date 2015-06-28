@@ -144,7 +144,7 @@ end note
 @enduml
 ```
 
-<img src="http://78rbbi.com1.z0.glb.clouddn.com/ticket.png" alt="" width="80%">
+![](http://78rbbi.com1.z0.glb.clouddn.com/ticket.png)
 
 
 [1]: http://plantuml.sourceforge.net
