@@ -179,4 +179,4 @@ if __name__ == '__main__':
 - `cls` 是类方法的第一个参数，表示类对象（注意，类也是对象）本身。类对象可以使用其它的名字代替，但Python社区惯用`cls`来表示。在使用类方法的时候第一个参数（`cls`），即类对象，不需要传递，该参数由Python解释器自动传递，如：`operFactory.createOperation('+')`。
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch1.%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82.png "Simple Factory"
+[1]: http://78rbbi.com1.z0.glb.clouddn.com/简单工厂模式.png

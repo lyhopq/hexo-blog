@@ -164,5 +164,5 @@ thick foot
 ![][2]
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch9.%e5%bb%ba%e9%80%a0%e8%80%85%e6%a8%a1%e5%bc%8f.png
-  [2]: http://www.tgmj.net/images/cp441/1.gif
+[1]: http://78rbbi.com1.z0.glb.clouddn.com/建造者模式.png
+[2]: http://www.tgmj.net/images/cp441/1.gif

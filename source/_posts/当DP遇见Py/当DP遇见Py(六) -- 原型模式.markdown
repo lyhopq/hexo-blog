@@ -159,6 +159,6 @@ if __name__ == '__main__':
 > “克隆”是要给钱地！
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch6.%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F.png
+  [1]: http://78rbbi.com1.z0.glb.clouddn.com/原型模式.png
   [2]: http://img1.mydrivers.com/img/20141205/769b71b924d24aca94f0a32f3e167495.jpg
   [3]: http://img1.mydrivers.com/img/20141205/e1edbc849aaf49b7b9078ea6e9214984.jpg

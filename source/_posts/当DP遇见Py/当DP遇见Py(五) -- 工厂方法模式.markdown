@@ -140,5 +140,5 @@ if __name__ == '__main__':
 ![][2]    你丫是在说我么？
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch5.%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.png
-  [2]: http://img4.duitang.com/uploads/blog/201401/04/20140104141143_R4rJx.gif
+[1]: http://78rbbi.com1.z0.glb.clouddn.com/工厂方法模式.png
+[2]: http://img4.duitang.com/uploads/blog/201401/04/20140104141143_R4rJx.gif

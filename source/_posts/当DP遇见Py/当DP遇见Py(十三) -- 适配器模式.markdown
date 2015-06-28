@@ -246,5 +246,5 @@ if __name__ == '__main__':
 请找出上图中那个东东是“适配器”。
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch13.%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F.png
+  [1]: http://78rbbi.com1.z0.glb.clouddn.com/适配器模式.png
   [2]: http://image.suning.cn/uimg/sop/commodity/201406191019167208_x.jpg

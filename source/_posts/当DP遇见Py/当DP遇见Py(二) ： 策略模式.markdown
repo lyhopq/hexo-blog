@@ -212,4 +212,4 @@ if __name__ == '__main__':
 - 闭包(`Closures`)。在`cashNormal`、`cashReturn`等函数中定义了一个函数`accpetMoney`，我们说`accpetMoney`是`cashNormal`、`cashReturn`等的内部函数。在`accpetMoney`的局部作用域中可以直接访问`cashReturn`局部作用域中定义的`mc`、`mr`变量。简单的说，这种内部函数可以使用外部函数变量的行为，就叫闭包。
 - 函数式编程（Functional programming）。高阶函数和闭包都是函数式编程的特点。因此Python支持函数式编程。关于Python如何支持函数式编程值得深入研究，有兴趣的同学可以查阅相关资料。
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch2.%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F.png
+[1]: http://78rbbi.com1.z0.glb.clouddn.com/策略模式.png

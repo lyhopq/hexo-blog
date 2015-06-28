@@ -170,4 +170,4 @@ if __name__ == '__main__':
 
 `Python`的`Proxy`实现就是这么简单。好用就是这么任性！
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch.4%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F.png
+[1]: http://78rbbi.com1.z0.glb.clouddn.com/代理模式.png

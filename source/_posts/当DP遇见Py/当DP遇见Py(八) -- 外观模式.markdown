@@ -124,6 +124,6 @@ if __name__ == "__main__":
 ![][3]
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch8.%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F.png
-  [2]: http://zj.sinaimg.cn/2012/0713/S64582T1342155984801.jpg
-  [3]: http://www.pp3.cn/uploads/allimg/111215/1116342X6-3.jpg
+[1]: http://78rbbi.com1.z0.glb.clouddn.com/外观模式.png
+[2]: http://zj.sinaimg.cn/2012/0713/S64582T1342155984801.jpg
+[3]: http://www.pp3.cn/uploads/allimg/111215/1116342X6-3.jpg

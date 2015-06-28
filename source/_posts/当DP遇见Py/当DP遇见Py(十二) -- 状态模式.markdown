@@ -168,5 +168,5 @@ if __name__ == "__main__":
 ![][2]
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch12.%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F.png
+  [1]: http://78rbbi.com1.z0.glb.clouddn.com/状态模式.png
   [2]: http://i1.brcdn.cn/download/2012/02/02/baoruan.com_53889ae89abab9bda.gif

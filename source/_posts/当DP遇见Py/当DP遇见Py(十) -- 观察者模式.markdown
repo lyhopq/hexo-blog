@@ -226,5 +226,5 @@ limin 收到消息：梁所长来了!
 ![][2]
 
 
-  [1]: http://images.cnblogs.com/cnblogs_com/wuyuegb2312/468244/o_ch10.%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F.png
-  [2]: http://doc.okbase.net/picture/addon/2013/08/04/A004202772-20994.png
+[1]: http://78rbbi.com1.z0.glb.clouddn.com/观察者模式.png
+[2]: http://doc.okbase.net/picture/addon/2013/08/04/A004202772-20994.png
