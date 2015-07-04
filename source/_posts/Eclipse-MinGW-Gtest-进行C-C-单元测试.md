@@ -1,6 +1,13 @@
 title: Eclipse + MinGW + Gtest 进行C/C++单元测试
-tags: [Eclipse,MinGW,Gtest,C/C++,单元测试]
+tags:
+  - Eclipse
+  - MinGW
+  - Gtest
+  - 单元测试
+date: 2015-07-03 19:47:25
+categories: [C/C++]
 ---
+
 
 ## Step 1： 下载 gtest
 
@@ -10,6 +17,8 @@ tags: [Eclipse,MinGW,Gtest,C/C++,单元测试]
 解压gtest-1.7.0，打开文件夹gtest-1.7.0。其中"samples"包含了10个gtest的例子；"src"是gtest的源码。
 
 ![](http://78rbbi.com1.z0.glb.clouddn.com/s1.png)
+
+<!-- more -->
 
 ## Step 3：在Eclipse中设置gtest的工作环境
 
