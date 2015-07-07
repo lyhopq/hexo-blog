@@ -10,12 +10,17 @@
     <%- partial('post/gallery') %>
   <% } %>
   <div class="entry">
-    <%- toc(post.content, {list_number: false}) %>
     <% if (post.excerpt && index){ %>
       <%- post.excerpt %>
     <% } else { %>
-      <%- post.content %>
+        <% if(post.toc !== false){ %>
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+        <%- toc(post.content, {list_number: false}) %>
+        </div>
     <% } %>
+      <%- post.content %>
+      <% } %>
   </div>
   <footer<% if (index) { %> class="end-sep"<% } %>>
     <% if (index){ %>
@@ -30,6 +35,7 @@
       </div>
       <% } %>
     <% } else { %>
+      <%- partial('post/prev_next') %>
       <%- partial('post/category') %>
       <%- partial('post/tag') %>
       <%- partial('post/share') %>

@@ -1,5 +1,6 @@
 title: Logistic回归
 date: 2013-08-27
+mathjax: true
 categories: 机器学习
 tags: ['Machine Learning',分类器,概率论]
 

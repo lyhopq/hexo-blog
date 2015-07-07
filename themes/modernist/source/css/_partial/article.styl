@@ -307,3 +307,44 @@ article
 
     .tags:before
       content '\f02b'
+
+.pagepart {
+	margin: 1em 0;
+	clear: both;
+	overflow: hidden
+}
+ 
+.pagepart a {
+	display: block;
+	float: left;
+	width: 50%;
+	background: #dbdbdb;
+	text-align: center;
+	padding: .4em 0;
+	color: #1ba1e2;
+	-webkit-transition: background .45s color .45s;
+	-moz-transition: background .45s color .45s;
+	-o-transition: background .45s color .45s;
+	-ms-transition: background .45s color .45s;
+	transition: background .45s color .45s
+}
+ 
+.pagepart a:hover {
+	color: #fafafa;
+	background: #717171
+}
+ 
+.pagepart a.prev::before {
+	content: "上一篇: ";
+	padding-right: .5em
+}
+ 
+.pagepart a.next::before {
+	content: "下一篇: ";
+	padding-right: .5em
+}
+ 
+.alignright.next {
+    float: right
+}
+

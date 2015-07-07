@@ -3,7 +3,7 @@ menu:
   Archives: /archives
 rss: /atom.xml
 
-archive_date_format: MMM DD
+archive_date_format: YYYY MMM DD
 fancybox: true
 
 widgets:
