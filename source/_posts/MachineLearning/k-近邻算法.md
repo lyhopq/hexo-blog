@@ -1,5 +1,6 @@
 title: k-近邻算法
 date: 2013-08-05
+mathjax: true
 categories: 机器学习
 tags: ['Machine Learning',分类器,概率论]
 

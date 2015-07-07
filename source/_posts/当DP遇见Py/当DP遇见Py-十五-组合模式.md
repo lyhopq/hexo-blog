@@ -2,7 +2,7 @@ title: 当DP遇见Py(十四) -- 备忘录模式
 date: 2015-7-4
 categories: Python
 tags: [Python,DP,C++]
-
+toc: false
 ---
 
 ## 定义：
