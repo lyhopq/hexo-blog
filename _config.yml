@@ -76,6 +76,26 @@ theme: modernist
 plugins:
 - hexo-generator-feed
 
+# Others
+index_generator:
+  per_page: 5 ##首页默认10篇文章标题 如果值为0不分页
+
+archive_generator:
+    per_page: 0 ##归档页面默认10篇文章标题
+    yearly: true  ##生成年视图
+    monthly: true ##生成月视图
+
+tag_generator:
+    per_page: 0 ##标签分类页面默认10篇文章
+
+category_generator: 
+    per_page: 0 ###分类页面默认10篇文章
+
+feed:
+    type: atom ##feed类型 atom或者rss2
+    path: atom.xml ##feed路径
+    limit: 20  ##feed文章最小数量
+
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
