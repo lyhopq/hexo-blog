@@ -87,7 +87,6 @@ var option = {
 _ts(option);
 
 $("#ts-search-input").mouseenter(function(){
-  $("#ts-search-input").animate({width:'+=100px',opacity:'+=0.4'},"slow")});
-$("#ts-search-input").mouseleave(function(){
+  $("#ts-search-input").animate({width:'+=100px',opacity:'+=0.4'},"slow")}).stop().mouseleave(function(){
   $("#ts-search-input").animate({width:'-=100px',opacity:'-=0.4'},"slow")});
 </script>
