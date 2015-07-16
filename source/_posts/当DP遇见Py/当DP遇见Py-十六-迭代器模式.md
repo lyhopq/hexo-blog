@@ -19,6 +19,8 @@ tags: [Python, C++, DP]
 
 > 乘车买票
 
+<!-- more -->
+
 ### C++ 实现
 
 ```C++
@@ -191,4 +193,4 @@ if __name__ == '__main__':
 
 
 [1]: http://78rbbi.com1.z0.glb.clouddn.com/%E8%BF%AD%E4%BB%A3%E5%99%A8.png
-[2]: http://78rbbi.com1.z0.glb.clouddn.com/tree.png
+[2]: http://78rbbi.com1.z0.glb.clouddn.com/6041cafeg8d35b1cee3d0&690.jpg
