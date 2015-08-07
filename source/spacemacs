@@ -15,8 +15,7 @@
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M
-     -m f e R> (Emacs style) to install them.
+     ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
@@ -35,6 +34,8 @@
      editorconfig
      themes-megapack
      perspectives
+     (python :variables python-enable-yapf-format-on-save t
+             python-test-runner 'pytest)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -57,7 +58,7 @@ before layers configuration."
   (setq-default
    ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
    ;; is `emacs' then the `holy-mode' is enabled at startup.
-   dotspacemacs-editing-style 'nil
+   dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer.
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
