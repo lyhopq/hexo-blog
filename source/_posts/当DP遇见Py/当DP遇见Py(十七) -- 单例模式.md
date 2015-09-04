@@ -1,7 +1,7 @@
 title: 当DP遇见Py(十七) -- 单例模式
 toc: false
 mathjax: false
-date: 2015-08-08 13:17:59
+date: 2015-08-02 13:17:59
 categories: Python
 tags: [Python, C++, DP]
 
