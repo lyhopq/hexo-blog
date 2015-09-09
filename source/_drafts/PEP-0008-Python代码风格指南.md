@@ -16,7 +16,7 @@ tags: [Python, Coding Style]
 
 本文对`Python`的主要发行版本的标准库的代码给出了编码约定。关于`Python`的`C`实现中的`C`风格指南请见相关的[PEP](#id1)。 
 
-本文和[PEP 257][PEP 257]（`Docstring 约定`）改编于`Guido`的最初的`Python`风格指南文章，并从[Barry的风格指南](#id2)中汲取了一些。
+本文和[PEP 257][PEP 257]（`文档字符串约定`）改编于`Guido`的最初的`Python`风格指南文章，并从[Barry的风格指南](#id2)中汲取了一些。
 
 因为语言本身的变化，这一风格指南也随着时间的推移而演变，更多的约定被发现，过时的约定被淘汰。
 
@@ -45,6 +45,70 @@ tags: [Python, Coding Style]
 每一个缩进层次使用4个空格。
 
 续行应该和其它元素对齐，要么在垂直方向上使用`Python`的括号内（圆括号、方括号和花括号）的隐式行连接特性进行对齐，要么使用[悬挂式缩进](#id5)。使用悬挂式缩进时应该遵守这些注意事项：第一行不能有参数、应该使用进一步的缩进使续行和其它行区分开来。
+
+符合风格的示例：
+
+```Python
+# 在开始分隔符上对齐
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+
+# 使用进一步的缩进使之和其它行区分
+def long_function_name(
+        var_one, var_two, var_three,
+        var_four):
+    print(var_one)
+
+# 悬挂式缩进应该增加一个缩进层次
+foo = long_function_name(
+    var_one, var_two,
+    var_three, var_four)
+```
+
+不符合风格的示例：
+
+```Python
+# 不适用垂直对齐时，第一行禁止写参数
+foo = long_function_name(var_one, var_two,
+    var_three, var_four)
+
+# 需要进一步的缩进，因为当前缩进不能区分代码层次
+def long_function_name(
+    var_one, var_two, var_three,
+    var_four):
+    print(var_one)
+```
+
+对于续行，使用4个空格的规则是可选的。
+
+可选的符合风格的示例：
+
+```Python
+# Hanging indents *may* be indented to other than 4 spaces.
+foo = long_function_name(
+    var_one, var_two,
+    var_three, var_four)
+```
+
+值得注意的是，当<span id="multiline-if-statements">`if`语句</span>的条件部分太长，要求被写在多行的时候，由两个字符的关键字（例如：`if`），加之一个空格和一个开始括号就为多行条件语句的后续行形成了一个天然的4个空格的缩进。这就与`if`语句里面的代码块的缩进（也是自然的缩进4个空格）产生了视觉上的冲突。本`PEP`没有明确的立场关于如何（或是否）采取进一步的措施来把这些条件行和`if`语句的嵌套代码快区分开来。在这种情况下可以接受的选择包括，但不限于：
+
+```Python
+# 没有额外的缩进
+if (this_is_one_thing and
+    that_is_another_thing):
+    do_something()
+
+# 添加一个注释，这会在支持语法高亮的编辑器中提供一些区别
+if (this_is_one_thing and
+    that_is_another_thing):
+    # Since both conditions are true, we can frobnicate.
+    do_something()
+
+# 在条件续行上添加额外的缩进
+if (this_is_one_thing
+        and that_is_another_thing):
+    do_something()
+```
 
 在多行结构中的结尾花括号/方括号/小括号应该放在多行列的最后一行的第一个非空字符的正下方，例如：
 
@@ -90,71 +154,65 @@ result = some_function_that_takes_arguments(
 
 对于那些具有很少结构约束的长代码块（文档字符串和注释）来说，单行长度应该限制在72字节。
 
+限制所需要的编辑器窗口的宽度使得并排编辑多个文件成为可能，而且能够使用代码评审工具在相邻的列中呈现两个版本。
 
+在大多数编辑器中使用的默认折叠(wrapping)会扰乱代码的视觉结构，使得代码更难以理解。这里选择的长度限制以避免在那些窗口宽度被设置成80的编辑器中折叠代码，即使这些工具在折叠代码时在最后一列放置了一个图像符号标记。一些基于网络的工具根本就不能提供动态的代码行折叠。
 
-符合风格的示例：
+一些团队强烈的倾向于较长的代码行长度。对那些专门或主要的由一个团队维护的代码，可以在这个问题上达成协议，可以把名义上的代码行长度从80增加到100字符（有效地增加最大长度到99字符），前提是注释和文档字符串仍然保存72字符的最大长度。
 
-```Python
-# 在开始分隔符上对齐
-foo = long_function_name(var_one, var_two,
-                         var_three, var_four)
+`Python`标准库是保守的，要求限制行长度为79字符（并且文档字符串/注释为72字符）。
 
-# 使用进一步的缩进使之和其它行区分
-def long_function_name(
-        var_one, var_two, var_three,
-        var_four):
-    print(var_one)
+折叠长代码行的首选方式是使用`Python`支持的圆括号、方括号和花括号内部的隐式行延续特性。在括号内，长代码行能够被打断成多行。相比于使用反斜杠进行行延续，这一特性应该优先被使用。
 
-# 悬挂式缩进应该增加一个缩进层次
-foo = long_function_name(
-    var_one, var_two,
-    var_three, var_four)
-```
-
-不符合风格的示例：
+反斜杠有时被可能仍然是适合的。例如，长的，`with`语句不能使用隐式续行，因此反斜杠是可接受的：
 
 ```Python
-# 不适用垂直对齐时，第一行禁止写参数
-foo = long_function_name(var_one, var_two,
-    var_three, var_four)
-
-# 需要进一步的缩进，因为当前缩进不能区分代码层次
-def long_function_name(
-    var_one, var_two, var_three,
-    var_four):
-    print(var_one)
+with open('/path/to/some/file/you/want/to/read') as file_1, \
+     open('/path/to/some/file/being/written', 'w') as file_2:
+    file_2.write(file_1.read())
 ```
 
-对于续行，使用4个空格的规则是可选的。
+（见前面有关[多行if语句](#multiline-if-statements)的讨论，对于这样的多行`with`语句需要进一步的思考。）
 
-可选的符合风格的示例：
+另一个这样的案例是`assert`语句。
+
+确保后续行有适当的缩进。二元操作符的断行首选位置是在操作符之后，而不是之前。一些例子：
 
 ```Python
-# Hanging indents *may* be indented to other than 4 spaces.
-foo = long_function_name(
-  var_one, var_two,
-  var_three, var_four)
+class Rectangle(Blob):
+
+    def __init__(self, width, height,
+                 color='black', emphasis=None, highlight=0):
+        if (width == 0 and height == 0 and
+                color == 'red' and emphasis == 'strong' or
+                highlight > 100):
+            raise ValueError("sorry, you lose")
+        if width == 0 and height == 0 and (color == 'red' or
+                                           emphasis is None):
+            raise ValueError("I don't think so -- values are %s, %s" %
+                             (width, height))
+        Blob.__init__(self, width, height,
+                      color, emphasis, highlight)
 ```
 
-值得注意的是，当`if`语句的条件部分太长，要求被写在多行的时候，由两个字符的关键字（例如：`if`），加之一个空格和一个开始括号就为多行条件语句的后续行形成了一个天然的4个空格的缩进。这就与`if`语句里面的代码块的缩进（也是自然的缩进4个空格）产生了视觉上的冲突。本`PEP`没有明确的立场关于如何（或是否）采取进一步的措施来把这些条件行和`if`语句的嵌套代码快区分开来。在这种情况下可以接受的选择包括，但不限于：
+### 空行
 
-```Python
-# 没有额外的缩进
-if (this_is_one_thing and
-    that_is_another_thing):
-    do_something()
+用两个空行分割顶层函数和类定义。
 
-# 添加一个注释，这会在支持语法高亮的编辑器中提供一些区别
-if (this_is_one_thing and
-    that_is_another_thing):
-    # Since both conditions are true, we can frobnicate.
-    do_something()
+使用一个空行分割类中的方法定义。
 
-# 在条件续行上添加额外的缩进
-if (this_is_one_thing
-        and that_is_another_thing):
-    do_something()
-```
+使用额外的空行（谨慎的）来分割相关的函数组。在一群相关的单行程序（例如，一组哑实现(dummy implementations)）间的空行可以被省略。
+
+谨慎的，在函数内使用空行，来指示逻辑部分。
+
+`Python`接受`Control-L`（即`^L`）换页符作为空格；许多工具把这些字符作为分页符，因此在你的文件中，可以使用它们把相关部分分页。注意，一些编辑器和基于网络的代码浏览器可能不会把`Control-L`识别为换页，并在这个位置显示为另外一个图像符号。
+
+### 源文件编码
+
+
+
+
+
 
 [PEP 257]: https://www.python.org/dev/peps/pep-0257
 
@@ -163,11 +221,11 @@ if (this_is_one_thing
 
 ## 参考
 
-[[1]](#id1) [PEP 7](https://www.python.org/dev/peps/pep-0007), Style Guide for C Code, van Rossum
-[[2]](#id2) [Barry's GNU Mailman style guide](http://barry.warsaw.us/software/STYLEGUIDE.txt)
-[[3]](#id3) http://www.wikipedia.com/wiki/CamelCase
+[<span id="id1">1</span>] [PEP 7](https://www.python.org/dev/peps/pep-0007), Style Guide for C Code, van Rossum
+[<span id="id2">2</span>] [Barry's GNU Mailman style guide](http://barry.warsaw.us/software/STYLEGUIDE.txt)
+[<span id="id3">3</span>] http://www.wikipedia.com/wiki/CamelCase
 [4] PEP 8 modernisation, July 2013 http://bugs.python.org/issue18472
 
 脚注
 
-[[5]](#id5) 悬挂式缩进是一种打字机风格，一个段落中除第一行之外的所有行都缩进。在`Python`中，这一术语用于描述一种风格：一个被括起来的语句的开始括号作为第一行中的最后一个非空字符，其后续行一并缩进，直到遇到结束的括号。 
+[<span id="id5">5</span>] 悬挂式缩进是一种打字机风格，一个段落中除第一行之外的所有行都缩进。在`Python`中，这一术语用于描述一种风格：一个被括起来的语句的开始括号作为第一行中的最后一个非空字符，其后续行一并缩进，直到遇到结束的括号。 
