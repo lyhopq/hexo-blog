@@ -209,6 +209,54 @@ class Rectangle(Blob):
 
 ### 源文件编码
 
+`Python`发布的核心代码应该总是`UTF-8`的（或者在`Python2`中是`ASCII`的）。
+使用`ASCII`（在`Python2`中）或`UTF-8`（在`Python3`中）编码的文件不应该有编码声明(encoding declaration)。
+
+在标准库中，非默认编码应该仅用于测试或当注释或文档字符串需要提及作者的名字，而该名字包含非`ASCII`字符时；否则，使用`\x`，`\u`，`\U`或`\N`等转义符在字符串字面值中包含非`ASCII`数据是首选的方式。
+
+对于`Python3.0`和以后版本，在标准库中使用了以下策略（见[PEP 3131][PEP 3131]）：所有的标识符**必须**是`ASCII`标识符，只要切实可行都**应该**使用英语单词（在许多情况下，使用的缩写和技术术语不是英语单词）。此外，字符串字面值和注释必须也是`ASCII`的。唯一的例外是：(a)测试非`ASCII`特性的测试用例，和(b)作者的名字。那些不是基于拉丁字母的作者名字**必须**提供一个拉丁英译。
+
+具有全球观众的开源项目鼓励采用类似的策略。
+
+### 导入
+
+- 导入通常应该在单独的行中，例如：
+
+应该这样：
+```Python
+import os
+import sys
+```
+
+而不是这样：
+```Python
+import sys, os
+```
+
+不过这样写也是可以的：
+```Python
+from subprocess import Popen, PIPE
+```
+
+- 导入应该总是放在文件的顶部，在模块的注释和文档字符串之后，在模块全局变量和常量之前。
+
+导入应该使用下面的顺序进行分组：
+1. 标准库导入
+2. 相关的第三方库导入
+3. 本地应用程序/库导入
+
+你应该在每组导入之间放置一个空行。
+
+任何相关的`__all__`规范放在导入之后。
+
+- 推荐使用绝对路径导入，因为它们通常会更可读，而且在导入系统没有被正确配置的情况下（例如，一个包内的目录恰好在`sys.path`中）具有更好的表现（或至少能够给出更好的错误信息）:
+
+```Python
+import mypkg.sibling
+from mypkg import sibling
+from mypkg.sibling import example
+```
+
 
 
 
@@ -217,6 +265,9 @@ class Rectangle(Blob):
 [PEP 257]: https://www.python.org/dev/peps/pep-0257
 
 [PEP 20]: https://www.python.org/dev/peps/pep-0020
+
+[PEP 3131]: https://www.python.org/dev/peps/pep-3131
+
 
 
 ## 参考
