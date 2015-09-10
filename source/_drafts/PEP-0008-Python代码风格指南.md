@@ -14,9 +14,9 @@ tags: [Python, Coding Style]
 
 ## 介绍
 
-本文对`Python`的主要发行版本的标准库的代码给出了编码约定。关于`Python`的`C`实现中的`C`风格指南请见相关的[PEP](#id1)。 
+本文对`Python`的主要发行版本的标准库的代码给出了编码约定。关于`Python`的`C`实现中的`C`风格指南请见相关的PEP[[1]](#id1)。 
 
-本文和[PEP 257][PEP 257]（`文档字符串约定`）改编于`Guido`的最初的`Python`风格指南文章，并从[Barry的风格指南](#id2)中汲取了一些。
+本文和[PEP 257][PEP 257]（`文档字符串约定`）改编于`Guido`的最初的`Python`风格指南文章，并从Barry的风格指南中汲取了一些[[2]](#id2)。
 
 因为语言本身的变化，这一风格指南也随着时间的推移而演变，更多的约定被发现，过时的约定被淘汰。
 
@@ -46,7 +46,7 @@ tags: [Python, Coding Style]
 
 续行应该和其它元素对齐，要么在垂直方向上使用`Python`的括号内（圆括号、方括号和花括号）的隐式行连接特性进行对齐，要么使用[悬挂式缩进](#id5)。使用悬挂式缩进时应该遵守这些注意事项：第一行不能有参数、应该使用进一步的缩进使续行和其它行区分开来。
 
-符合风格的示例：
+符合规范的示例：
 
 ```Python
 # 在开始分隔符上对齐
@@ -65,7 +65,7 @@ foo = long_function_name(
     var_three, var_four)
 ```
 
-不符合风格的示例：
+不符合规范的示例：
 
 ```Python
 # 不适用垂直对齐时，第一行禁止写参数
@@ -81,7 +81,7 @@ def long_function_name(
 
 对于续行，使用4个空格的规则是可选的。
 
-可选的符合风格的示例：
+可选的符合规范的示例：
 
 ```Python
 # Hanging indents *may* be indented to other than 4 spaces.
@@ -160,7 +160,7 @@ result = some_function_that_takes_arguments(
 
 一些团队强烈的倾向于较长的代码行长度。对那些专门或主要的由一个团队维护的代码，可以在这个问题上达成协议，可以把名义上的代码行长度从80增加到100字符（有效地增加最大长度到99字符），前提是注释和文档字符串仍然保存72字符的最大长度。
 
-`Python`标准库是保守的，要求限制行长度为79字符（并且文档字符串/注释为72字符）。
+`Python`标准库采用保守策略，限制行长度为79字符（并且文档字符串/注释为72字符）。
 
 折叠长代码行的首选方式是使用`Python`支持的圆括号、方括号和花括号内部的隐式行延续特性。在括号内，长代码行能够被打断成多行。相比于使用反斜杠进行行延续，这一特性应该优先被使用。
 
@@ -216,46 +216,419 @@ class Rectangle(Blob):
 
 对于`Python3.0`和以后版本，在标准库中使用了以下策略（见[PEP 3131][PEP 3131]）：所有的标识符**必须**是`ASCII`标识符，只要切实可行都**应该**使用英语单词（在许多情况下，使用的缩写和技术术语不是英语单词）。此外，字符串字面值和注释必须也是`ASCII`的。唯一的例外是：(a)测试非`ASCII`特性的测试用例，和(b)作者的名字。那些不是基于拉丁字母的作者名字**必须**提供一个拉丁英译。
 
-具有全球观众的开源项目鼓励采用类似的策略。
+推荐那些具有全球视野的开源项目采用类似的策略。
 
 ### 导入
 
 - 导入通常应该在单独的行中，例如：
 
-应该这样：
-```Python
-import os
-import sys
-```
+  符合规范的示例：
+  ```Python
+  import os
+  import sys
+  ```
 
-而不是这样：
-```Python
-import sys, os
-```
+  不符合规范的示例：
+  ```Python
+  import sys, os
+  ```
 
-不过这样写也是可以的：
-```Python
-from subprocess import Popen, PIPE
-```
+  不过这样的导入也是可以的：
+  ```Python
+  from subprocess import Popen, PIPE
+  ```
 
 - 导入应该总是放在文件的顶部，在模块的注释和文档字符串之后，在模块全局变量和常量之前。
 
-导入应该使用下面的顺序进行分组：
-1. 标准库导入
-2. 相关的第三方库导入
-3. 本地应用程序/库导入
+  导入应该使用下面的顺序进行分组：
+  1. 导入标准库
+  2. 导入相关的第三方库
+  3. 导入相关的本地应用程序/库
 
-你应该在每组导入之间放置一个空行。
+  你应该在每组导入之间放置一个空行。
 
-任何相关的`__all__`规范放在导入之后。
+  任何相关的`__all__`规范放在导入之后。
 
 - 推荐使用绝对路径导入，因为它们通常会更可读，而且在导入系统没有被正确配置的情况下（例如，一个包内的目录恰好在`sys.path`中）具有更好的表现（或至少能够给出更好的错误信息）:
+  ```Python
+  import mypkg.sibling
+  from mypkg import sibling
+  from mypkg.sibling import example
+  ```
+
+  然而，在有些时候，显示的相对导入是绝对导入可接受的替代，特别是在应对复杂的包结构时绝对导入会出现不必要的繁琐的情况下：
+  ```Python
+  from . import sibling
+  from .sibling import example
+  ```
+
+  标准库的代码应该避免复杂的包结构，因此总是使用绝对导入。
+
+  不应该使用隐式的相对导入，并且`Python3`已经去掉了对它的支持。
+
+- 当从一个包含类的模块中导入类时，这样写通常是合理的：
+  ```Python
+  from myclass import MyClass
+  from foo.bar.yourclass import YourClass
+  ```
+
+  若果这样写会引起本地名字冲突，就使用下面的方式：
+  ```Python
+  import myclass
+  import foo.bar.yourclass
+  ```
+
+  并且使用"myclass.MyClass"和"foo.bar.yourclass.YourClass"这样的方式来引用。
+
+- 通配符导入（`from <module> import *`）应该被禁止。因为，这导致哪些名字存在命名空间中变得不清晰，迷惑读者和许多自动化工具。不过，有一个能站得住脚的使用通配符导入的案例：为了重新发布一个内部的接口作为公共`API`的一部分（例如，使用纯`Python`来重写一个可选的加速模块定义的接口，但你不能事先确定到底哪些接口会被重写）。
+
+  当以这样的方式重新发布命名时，还应该遵守本指针有关公有的和内部的接口的规范。
+
+## 字符串的引号
+
+在`Python`中，单引号字符串和双引号字符串是相同的。本`PEP`并不对其做出建议，选择一个规则，坚持下去就可以了。然而，当字符串包含单引号或双引号时，应该使用另一个引号来避免在字符串中使用反斜杠。这会改善可读性。
+
+对于三个引号的字符串，总是使用双引号与在[PEP 257][PEP 257]所约定的文档字符串规范保持一致。
+
+## 表达式和语句中的空格
+
+### 通病
+
+在以下的情况种避免额外的空格：
+
+- 紧接着圆括号、方括号或花括号内
+
+  Yes:
+  ```Python
+  spam(ham[1], {eggs: 2})
+  ```
+  No:
+  ```Python
+  spam( ham[ 1 ], { eggs: 2 } )
+  ```
+
+- 逗号、分号或冒号之前：
+
+  Yes:
+  ```Python
+  if x == 4: print x, y; x, y = y, x
+  ```
+  No:
+  ```Python
+  if x == 4 : print x , y ; x , y = y , x
+  ```
+
+- 然而，在slice（切片）中，冒号就像一个二元操作符，并且在它的两侧应该有相等数量的操作数（把它当做最低优先级的操作符）。在扩展slice中，两个冒号必须具有相等数量的空格。例外：当slice的某个参数省略了，那么其相应的空格也应该省略。
+
+  Yes:
+  ```Python
+  ham[1:9], ham[1:9:3], ham[:9:3], ham[1::3], ham[1:9:]
+  ham[lower:upper], ham[lower:upper:], ham[lower::step]
+  ham[lower+offset : upper+offset]
+  ham[: upper_fn(x) : step_fn(x)], ham[:: step_fn(x)]
+  ham[lower + offset : upper + offset]
+  ```
+  No:
+  ```Python
+  ham[lower + offset:upper + offset]
+  ham[1: 9], ham[1 :9], ham[1:9 :3]
+  ham[lower : : upper]
+  ham[ : upper]
+  ```
+
+- 函数调用参数列表的开始括号之前:
+
+  Yes:
+  ```Python
+  spam(1)
+  ```
+  No:
+  ```Python
+  spam (1)
+  ```
+
+- 索引或切片的开始括号之前：
+
+  Yes:
+  ```Python
+  dct['key'] = lst[index]
+  ```
+  No:
+  ```Python
+  dct ['key'] = lst [index]
+  ```
+
+- 在赋值（或其它）操作符两侧，多余一个的，用于和其它操作符对齐为目的空格：
+
+  Yes:
+  ```Python
+  x = 1
+  y = 2
+  long_variable = 3
+  ```
+  No:
+  ```Python
+  x             = 1
+  y             = 2
+  long_variable = 3
+  ```
+
+### 其它建议
+
+- 总是在这些二元操作符两侧使用一个空格：赋值（=），参数赋值（+=、-= 等等），比较（==、<、>、!=、<>、<=、>=、in、not in、is、is not），布尔（and、or、not）。
+
+- 如果使用不同优先级的操作符，考虑在最低优先级的操作符两侧加上空格。请自行判断，无论怎样，绝不要使用多余一个空格，并且使得二元操作符两侧具有相同数量的空格。
+
+  Yes:
+  ```Python
+  i = i + 1
+  submitted += 1
+  x = x*2 - 1
+  hypot2 = x*x + y*y
+  c = (a+b) * (a-b)
+  ```
+  No:
+  ```Python
+  i=i+1
+  submitted +=1
+  x = x * 2 - 1
+  hypot2 = x * x + y * y
+  c = (a + b) * (a - b)
+  ```
+
+- 在关键字参数或默认参数中的`=`号两侧不要出现空格。
+
+  Yes:
+  ```Python
+  def complex(real, imag=0.0):
+      return magic(r=real, i=imag)
+  ```
+  No:
+  ```Python
+  def complex(real, imag = 0.0):
+      return magic(r = real, i = imag)
+  ```
+
+- 在带注解的函数定义中的`=`号两侧使用空格。此外，在`:`号之后使用一个空格，以及在`->`号两侧各使用一个空格，代码一个注解的返回值。
+
+  Yes:
+  ```Python
+  def munge(input: AnyStr):
+  def munge(sep: AnyStr = None):
+  def munge() -> AnyStr:
+  def munge(input: AnyStr, sep: AnyStr = None, limit=1000):
+  ```
+  No:
+  ```Python
+  def munge(input: AnyStr=None):
+  def munge(input:AnyStr):
+  def munge(input: AnyStr)->PosInt:
+  ```
+
+- 不建议使用符合语句（同一行中有多条语句）。
+
+  Yes:
+  ```Python
+  if foo == 'blah':
+      do_blah_thing()
+  do_one()
+  do_two()
+  do_three()
+  ```
+  No:
+  ```Python
+  if foo == 'blah': do_blah_thing()
+  do_one(); do_two(); do_three()
+  ```
+
+- 虽然有时把较短的`if/for/while`语句放在一行也是可以的，但决不能把它运用到多字句的语句中。这样也是为了避免折叠长行。
+
+  No:
+  ```Python
+  if foo == 'blah': do_blah_thing()
+  for x in lst: total += x
+  while t < 10: t = delay()
+  ```
+  No:
+  ```Python
+  if foo == 'blah': do_blah_thing()
+  else: do_non_blah_thing()
+  
+  try: something()
+  finally: cleanup()
+  
+  do_one(); do_two(); do_three(long, argument,
+                               list, like, this)
+
+  if foo == 'blah': one(); two(); three()
+  ```
+
+## 注释
+
+与代码相矛盾的注释，还不如没有注释。总是保持注释随着代码更新！
+
+注释应该是完整的句子。如果注释是一个短语或句子，它的第一个单词的首字母应该大写，除非第一个单词是一个以小写字母开头的标识符（绝不要改变标识符的大小写！）。
+
+如果一个注释很短，结尾的句点就可以省略。块注释通常由完整的句子建立起的多个段落组成，并且每个句子都应该以句点结束。
+
+你应该在句子结束的句点后面使用两个空格。
+
+当撰写英文注释时，参考《The Elements of Style》(Strunk and White)。
+
+来自于非英语国家的`Python`程序员：请使用英语写你的注释，除非你120%的确定你写的代码绝不会被不懂得你的语言的人阅读。
+
+
+### 块注释
+
+块注释通常都是用来阐述跟随其后的代码的，并和该代码具有相同的缩进层次。块注释的每一行都以`#`和一个空格开始（除非在注释内部有文本缩进）。
+
+块注释中的段落都以只包含一个`#`的行隔开。
+
+### 行内注释
+
+尽量少的使用行内注释。
+
+行内注释就是同语句在同一行内的注释，应该使用至少两个空格同语句隔开，以一个`#`和空格开始。
+
+如果行内注释表述的含义及其明显，那么它就是多余的，而且还会分散读者的注意力。不要撰写这样的注释：
 
 ```Python
-import mypkg.sibling
-from mypkg import sibling
-from mypkg.sibling import example
+x = x + 1                 # Increment x
 ```
+
+但有些时候，行内注释也是有用的：
+
+```Python
+x = x + 1                 # Compensate for border
+```
+
+### 文档字符串
+
+关于编写好的文档字符串（亦称 "docstrings"）的约定请参见[PEP 257][PEP 257]。
+
+- 为所有的共有的模块、函数、类和方法撰写文档字符串。对于非公有方法，文档字符串是没有必要的，但你应该使用注释来描述该方法的用途，并且注释应该在`def`行之后。
+
+- [PEP 257][PEP 257] 描述了好的文档字符串的约定。注意，最重要的是，多行文档字符串结尾的`"""`应该单独放在一行，例如：
+
+  ```Python
+  """Return a foobang
+
+  Optional plotz says to frobnicate the bizbaz first.
+  """
+  ```
+
+- 对于单行的文档字符串，请保持结束的`"""`在同一行上。
+
+## 版本注记
+
+如果在你的源文件中有`Subversion`、`CVS`或`RCS`等版本更新记录，像下面这样写：
+
+```Python
+__version__ = "$Revision$"
+# $Source$
+```
+
+以上这些内容应该放在模块的文档字符串后面，代码之前，以一个空行分割其前后。
+
+## 命名约定
+
+`Python`库中的命名约定有些混乱，我们永远不能使之完全一致——不过，本指南里的是当前推荐的命名标准。新的模块和包（包括第三方框架）应该使用该标准编写，但如果一个以存在的库有不同的分割时，保持内部一致性是首选。
+
+### 最重要的原则
+
+作为公共`API`的一部分，用户可见的名字应该遵守这一约定：名字反映功能而不是实现。
+
+### 描述：命名风格
+
+有许多中不同的命名风格。独立于它们的用途，识别使用了什么命名风格是有帮助的。
+
+下面是一些著名的命名风格：
+- b（单一小写字母）
+- B（单一大写字母）
+- lowercase
+- lower_case_with_underscores
+- UPPERCASE
+- UPPER_CASE_WITH_UNDERSCORES
+- CapitalizedWords(or CapWords, or CamelCase -- 命名得自于其字母崎岖的形状[[3]](#id3)).
+  有时也被称作`StudlyCaps`。
+  注意：在`CapWords`中使用缩写时，缩写都使用大写字母。因此`HTTPServerError`好于`HttpServerError`。
+- mixedCase(与`CapitalizedWords`不同的是，其首字母小写！)
+- Capitalized_Words_With_Underscores (丑陋的！)
+
+还有的风格是使用一个简短的唯一的前缀来把相关的名字分组。这种风格在`Python`中使用的不多，但为了完整性还是提及一下。例如，`os.stat()`函数返回一个元组(tuple)，其成员传统上的命名方式如同`st_mode`、`st_size`、`st_mtime`等等。（这样做是为了强调其对应于`POSIX`系统调用结构体的成员，这有助于程序员熟悉其使用方式。）
+
+`X11`库的所有共有函数都使用一个`X`作为开始。在`Python`中，这一风格被认为是不必要的，因为属性和方法名都以对象为前缀，而函数名以模块名为前缀。
+
+此外，在下面的特殊形式中使用下划线作为前缀或后缀是被公认的（它们通常与以上形式的风格一起使用）：
+- `_single_leading_underscore`：弱“内部使用”指示。例如，`from M import *`不会导入以一个下划线开始的名字。
+- `single_trailing_underscore_`：约定使用这样的方式来避免和`Python`关键字冲突，例如：
+  ```Python
+  Tkinter.Toplevel(master, class_='ClassName')
+  ```
+- `__double_leading_underscore`：当用于命名一个类的属性时，会出发名字篡改(`name mangling`)机制（在类`FooBar`内，`__boo`变成`_FooBar__boo`）
+- `__double_leading_and_trailing_underscore__`：驻留在用户可以控制的命名空间内的“魔法”对象或属性。例如，`__init__`、`__import__`或`__file__`。不要创造这样的名字，只使用它们。
+
+### 规定：命名约定
+
+#### 避免使用的命名
+
+不要使用字符`'l'`(小写字母`el`)，`'O'`（大写字母`oh`）或`'I'`（大写字母`eye`）作为单字符变量名。
+
+在一些字体里，这些字符和数字1和0难以区分。需要临时使用`'l'`的时候，使用`'L'`代替。
+
+#### 包和模块的命名
+
+模块应该使用简短的、都小写的名字。在模块名中可以使用下划线，如果它可以提高可读性的话。`Python`包也应该使用简短的、都小写的名字，然而，并不提倡使用下划线。
+
+因为模块名映射为文件名，加之一些文件系统不区分大小写且会截断长的文件名，因此为模块名选择相当短的名字是很重要的——这在`Unix`系统中并不存在问题，但当把代码搬运到老版本的`Mac`或`Windows`或`DOS`系统时就会出现问题。
+
+当一个以`C`或`C++`编写的扩展模块有一个伴随的，提供高层接口的`Python`模块时，`C/C++`模块需要以一个下划线开始（例如，`_socket`）。
+
+#### 类命名
+
+正常情况下，类名使用`CapWords`风格。
+
+The naming convention for functions may be used instead in cases where the interface is documented and used primarily as a callable.
+
+注意，对于内建(builtin)名字有一个单独的约定：大多数的内建名字都是单个单词（或两个单词和在一起），`CapWords`约定仅使用在异常命名和内建常量上。
+
+#### 异常命名
+
+因为异常应该是类，因此使用类命名的约定。然而，你应该在你的异常命名上使用`"Error"`后缀（如果异常确实是一个错误）。
+
+#### 全局变量命名
+
+（让我们期望这些变量仅在一个模块内部使用。）它的命名约定和函数的命名约定差不多。
+
+对那些设计能够使用`from M import *`的模块应该使用`__all__`机制来阻止导出全局变量，或者使用前面的约定在全局变量上加上下划线前缀（通过这样表示你想要使这些全局变量成为“模块非公有”）。
+
+#### 函数命名
+
+函数命名应该使用`lowecase`风格，根据需要以下划线分割单词来提高可读性。
+
+`mixedCase`风格仅在那些已经大量使用该风格的上下文中使用（例如，`threading.py`)，为了保持向后兼容性。
+
+#### 函数和方法参数
+
+总是使用`self`作为实例方法的第一个参数。
+
+总是使用`cls`作为类方法的第一个参数。
+
+如果函数的参数名和一个保留关键字冲突，通常的做法是在名字后面加上一个下划线，而不是使用缩写或拼写贪墨(spelling corruption)。因此`class_`好于`clss`。（或许通过使用同义词来避免冲突会更好。）
+
+#### 方法名和实例变量
+
+使用函数命名规则：`lowercase`风格，根据需要使用下划线分割单词以提高可读性。
+
+为非公有的方法和实例变量添加一个下划线前缀。
+
+避免名字和子类冲突，使用两下划线前缀来触发`Python`的名字篡改机制。
+
+`Python`会使用类名来篡改这些名字：如果类`Foo`有一个属性叫做`__a`，它不能够通过使用`Foo.__a`来访问。（一个坚持的用户任然可以通过调用`Foo._Foo__a`来获得访问。）通常，双下划线前缀仅用于避免基类的属性和它的子类的属性相冲突。
+
+注意：有关使用`__`名字还有些争论。
+
+#### 常量
 
 
 
