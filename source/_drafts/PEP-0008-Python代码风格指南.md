@@ -1,6 +1,8 @@
 title: PEP 0008 -- Python代码风格指南
-tags: [Python, Coding Style]
+tags: [Python, Coding Style, 翻译]
 ---
+
+译自：https://www.python.org/dev/peps/pep-0008/
 
 | PEP:          | 8             |
 |----------------| ------------- |
@@ -651,18 +653,240 @@ The naming convention for functions may be used instead in cases where the inter
 - 如果你的类的意图是为了被子类化，并且该类中有你不想要子类使用的属性，考虑使用双下划线前缀和没有下划线后缀的方式来命名这些属性。这会触发`Python` 名字篡改算法，把类名加入到(mangled into)属性名中。这样会避免子类无意中包含了和基类同名的属性而引起的名字冲突。
 注意1：
 
+注意1：请注意在篡改名字时仅简单的使用了类名，因此如果你的子类同时使用了与基类相同的类名和属性名，仍然会出现命名冲突。
+注意2：名字篡改使得某些使用者，如调试和`__getattr_()`，变得不方便。然而，名字篡改算法还是有据可查和易于手动地执行的。
+注意3：并不是每个人都喜欢名字篡改。试着去平衡避免名字冲突的需要和将来潜在的调用需求。
 
+### 公共的和内部的接口
 
+任何向后兼容性保证只适用于公共接口。相应的，能够使用户清晰的区分公共的和内部的接口是重要的。
 
+文档化的接口被认为是公共的，除非在文档中明确的声明接口是临时的或内部的，以免除通常的向后兼容性保证。所有未文档化的接口都被假定为内部的。
 
+为了更好地支持自省(introspection)，模块应该使用`__all__`属性来显示的声明它的所提供的公共的名字。设置`__all__`为一个空的`list`，表示该模块没有公共的`API`。
 
-[PEP 257]: https://www.python.org/dev/peps/pep-0257
+即使适当的设置了`__all__`，内部的接口（包、模块、类、函数、属性或其它名字）应该仍要使用一个下划线作为其前缀。
 
-[PEP 20]: https://www.python.org/dev/peps/pep-0020
+在任何内部的命名空间（包、模块或类）中的接口也被认为是内部的。
 
-[PEP 3131]: https://www.python.org/dev/peps/pep-3131
+应该总是认为被导入的名字是一个实现的细节。其它的模块绝不能对这些被导入的名字进行间接访问，除非它们是作为导入它们的模块的，显示文档化了的`API`的一部分，诸如`os.path`或一个包的`__init__`模块（用于从子模块公开功能）。
 
+## 编程建议
 
+- 代码不要编写的不利于其它的`Python`实现（`PyPy`、`Jython`、`IronPython`、`Cython`、`Psyco`等等）。
+例如，不要依赖`CPython`的，形如`a += b`或`a = a + b`这样的语句，高效的就地字符串连接现实。这一优化即使是在`CPython`中也很脆弱（它只能用于某些类型），并且在那些没有使用引用计数(refcounting)的实现中根本就不存在。对于性能比较敏感的库中，应该使用`''.join()`的形式。它会确保在不同的实现中连接都会在线性时间内。
+
+- 同`None`比较时，总是使用`is`或`is not`，而不是相等操作符。
+同样，谨防当你的真实意图是`if x is not None`而写成`if x` —— 例如，在测试一个变量或参数是否默认为`None`，从而给它赋其它值的时候。而这个其它值（例如容器）在布尔上下文中可能是`false`！
+
+- 使用`is not`操作符而不是`not ... is`。虽然两个表达式功能性相同，但前者的可读性更强。
+
+  Yes:
+  ```Python
+  if foo is not None:
+  ```
+  No:
+  ```Python
+  if not foo is None:
+  ```
+
+- 当需要丰富的比较来实现排序操作时，最好实现所有六个操作符(`__eq__`,`__ne__`,`__lt__`,`__le__`,`__gt__`,`__ge__`)，而不是依赖其它的代码来使用一个特定的比较操作符。
+为了简化，`functools.total_ordering()`装饰器提供了一个工具来生成缺失的比较方法。
+根据[PEP 207][PEP 207]的指示，`Python`使用自反性规则。也就是，解释器能够交换`y > x`和`x < y`，`x == y`和`x != y`。`sort()`和`min()`操作保证使用`<`操作符，而`max()`函数使用`>`操作符。然而，最好还是实现所有的六个操作符，使得在其它的场合不会引起混乱。
+
+- 总是使用`def`语句，而不是使用赋值语句直接把一个`lambda`表达式绑定到一个标识符。
+
+  Yes:
+  ```Python
+  def f(x): return 2*x
+  ```
+  No:
+  ```Python
+  f = lambda x: 2*x
+  ```
+
+  第一中形式意味着该函数对象的确切的名字是`'f'`，而不是通用的`'<lambda>'`。这更利于`traceback`和通用的字符串表示。赋值语句的使用消除了`lambda`表达式相比于显示的`def`语句可以提供的唯一好处（例如，它可以被嵌入更大的表达式）。
+
+- 从`Exception`而不是`BaseException`派生异常。直接从`BaseException`继承保留给那些不需要捕捉的异常（捕捉它们几乎总是错误的）。
+
+  设计异常层次结构应该基于是为了什么需要来捕获异常的区分，而不是所抛出异常的位置。宗旨是以编程的方式回答“出现了什么问题？”，而不是仅仅说明“一个问题发生了”（见[PEP 3151][PEP 3151]，从内置异常层次结构学习到的一个示例）。
+
+  在这适用于类命名规范，然而当异常是一个错误(error)时，你应该给它加上`"Error"`后缀。被用于非局部流程控制或其它形式的信号的非错误异常不需要特殊的后缀。
+
+- 适当的使用异常链。在`Python 3`中，应该使用`"raise X from Y"`，这样就不会导致原有的`traceback`丢失。
+
+  当故意的取代内部异常的时候（在`Python 2`中使用`"raise X"`，在`Python 3.3+`中使用`"raise X from None"`），要确保相关的细节被转移到了新的异常里了（例如，在把`KeyError`转换到`AttributeError`时保留其属性名，或把原异常的文本嵌入到新异常的消息中）。
+
+- 在`Python 2`中抛出异常的时候，使用`raise ValueError('message')`的形式，而不是`raise ValueError, 'mdssage`这种过时的形式。
+
+  在`Python 3`中，后一种形式不符合语法。
+
+  使用括号的形式也意味着当异常的参数太长或包含字符串格式化时，得益于所包含的括号，你不需要使用行延续字符。
+
+- 当捕获异常时，尽量提到具体的异常，而不要仅使用裸的`except:`字句。
+
+  例如，使用：
+
+  ```Python
+  try:
+      import platform_specific_module
+  except ImportError:
+      platform_specific_module = None
+  ```
+
+  裸的`except:`字句会捕获`SystemExit`和`KeyboardInterrupt`异常，导致不能使用`Control-C`来中断一个程序，而且还会掩盖其它问题。如果你要捕获所有标志程序错误的异常，请使用`except Exception：`（裸的`except:`等价于`except BaseException:`）。
+
+  一种比较好的做法是只在以下两种情况中使用裸的`'except'`字句：
+  1. 如果异常处理程序会打印或日志记录`traceback`；至少用户将会意识到发生了一个错误。
+  2. 如果需要代码做一些清理工作，然后使用`raise`把异常向上传播。`try ... finally`可能是一个更好的方式来处理这种情况。
+
+- 当绑定被捕获的异常到一个名字时，使用在`Python 2.6`中添加的显示名字绑定语法：
+
+  ```Python
+  try:
+      process_data()
+  except Exception as exc:
+      raise DataProcessingFailedError(str(exc))
+  ```
+
+  这是`Python 3`中唯一支持的语法，并且能够避免老式基于逗号的语法所带来的模棱两可。
+
+- 当捕获操作系统错误时，宁愿使用`Python 3.3`引入的显示异常j层次结构，而不是对`errno`值做自省。
+
+- 此外，对于所有的`try/except`字句，限制`try`字句的语句数量到最小是有必要的。再一次，这样做避免了掩盖`bug`。
+
+  Yes:
+  ```Python
+  try:
+      value = collection[key]
+  except KeyError:
+      return key_not_found(key)
+  else:
+      return handle_value(value)
+  ```
+  No:
+  ```Python
+  try:
+      # Too broad!
+      return handle_value(collection[key])
+  except KeyError:
+      # Will also catch KeyError raised by handle_value()
+      return key_not_found(key)
+  ```
+
+- 当一个资源只在一个特定代码片段中使用时，使用`with`语句来确保：当该资源被使用完后，会被及时地和可靠地清理。使用`try/finally`语句也是可以接受的。
+
+- 上下文管理(context manager)都应该通过单独的函数或方法来调用，无论它们会不会做除了获取和释放资源以外的事情。例如：
+
+  Yes:
+  ```Python
+  with conn.begin_transaction():
+      do_stuff_in_transaction(conn)
+  ```
+  No:
+  ```Python
+  with conn:
+      do_stuff_in_transaction(conn)
+  ```
+
+  后一个例子并不能提供任何的信息，表明`__enter__`和`__exit__`方法会做除了在一个事务(transaction)结束之后关闭连接之外的其它任何事情。在这种情况下，显示(explicit)是很重要的。
+
+- 在`return`语句中保持一致。在一个函数中的所有`return`语句，要么都返回一个表达式，要么都不返回。如果有任何一个`return`语句返回一个表达式，那么其它任何不返回值的`return`语句都要显示的使用`None`作为返回值，并且在函数的最后应该放一个显示的`return`语句（如果可以到达的话）。
+
+  Yes:
+  ```Python
+  def foo(x):
+      if x >= 0:
+          return math.sqrt(x)
+      else:
+          return None
+  
+  def bar(x):
+      if x < 0:
+          return None
+      return math.sqrt(x)
+  ```
+  No:
+  ```Python
+  def foo(x):
+      if x >= 0:
+          return math.sqrt(x)
+  
+  def bar(x):
+      if x < 0:
+          return
+      return math.sqrt(x)
+  ```
+
+- 使用字符串的方法而不是字符串模块。
+
+  字符串方法总是比较快，而且和`Unicode`字符串具有相同的`API`。如果为了同`Python 2.0`和其以前的版本保持后向兼容，请忽略本条款。
+
+- 使用`".startswith()"`和`".endswith()"`来检查前缀和后缀，而不是字符串切片(slicing)。
+
+  `startswith()`和`endswith()`更简洁，不容易出错。例如：
+
+  Yes:
+  ```Python
+  if foo.startswith('bar'):
+  ```
+  No:
+  ```Python
+  if foo[:3] == 'bar':
+  ```
+
+- 应该总是使用`ininstance()`进行对象类型比较，而不是直接比较类型。
+
+  Yes:
+  ```Python
+  if isinstance(obj, int):
+  ```
+  No:
+  ```Python
+  if type(obj) is type(1):
+  ```
+
+  当检查一个对象是否时字符串时，请记住：它有可能是一个`Unicode`字符串！在`Python 2`中，`str`和`unicode`具有相同的基类，`basestring`，因此，你可以这样做：
+
+  ```Python
+  if isinstance(obj, basestring):
+  ```
+
+  注意，在`Python 3`中已经不存在`unicode`和`basestring`了（只有`str`了），并且`bytes`对象已经不在是一种字符串了（它变成了一个整数序列）。
+
+- 对于序列（`string`、`list`、`tuple`），运用空序列是`false`这一事实。
+
+  Yes:
+  ```Python
+  if not seq:
+  if seq:
+  ```
+  No:
+  ```Python
+  if len(seq)
+  if not len(seq)
+  ```
+
+- 不要写出依赖于以有意义的空格结尾的字符串字面值。这样的空格在视觉上无法区分，并且有些编辑器会修剪它们。
+
+- 不要使用`==`来进行布尔值和`True`或`False`的比较。
+
+  Yes:
+  ```Python
+  if greeting:
+  ```
+  No:
+  ```Python
+  if greeting == True:
+  ```
+  Worse:
+  ```Python
+  if greeting is True:
+  ```
+
+- `Python`标准库不会使用函数注解，因为这会导致对一个特定的注解风格过早的承诺。反之，留给用户来发现和实验有用的注解风格。
+
+  *注解部分省略*
 
 ## 参考
 
@@ -674,3 +898,11 @@ The naming convention for functions may be used instead in cases where the inter
 脚注
 
 [<span id="id5">5</span>] 悬挂式缩进是一种打字机风格，一个段落中除第一行之外的所有行都缩进。在`Python`中，这一术语用于描述一种风格：一个被括起来的语句的开始括号作为第一行中的最后一个非空字符，其后续行一并缩进，直到遇到结束的括号。 
+
+
+[PEP 20]: https://www.python.org/dev/peps/pep-0020
+[PEP 207]: https://www.python.org/dev/peps/pep-207
+[PEP 257]: https://www.python.org/dev/peps/pep-0257
+[PEP 3131]: https://www.python.org/dev/peps/pep-3131
+[PEP 3151]: https://www.python.org/dev/peps/pep-3151
+
