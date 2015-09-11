@@ -1,8 +1,16 @@
 title: PEP 0008 -- Python代码风格指南
-tags: [Python, Coding Style, 翻译]
+toc: true
+mathjax: false
+tags:
+  - Python
+  - Coding Style
+  - 翻译
+date: 2015-09-11 22:50:21
+categories: Python
 ---
 
 译自：https://www.python.org/dev/peps/pep-0008/
+
 
 | PEP:          | 8             |
 |----------------| ------------- |
@@ -23,6 +31,8 @@ tags: [Python, Coding Style, 翻译]
 因为语言本身的变化，这一风格指南也随着时间的推移而演变，更多的约定被发现，过时的约定被淘汰。
 
 许多的项目有他们自己的编码风格指南。如果发生了冲突，项目应该居先考虑项目特定的指南。
+
+<!--more-->
 
 ## 愚蠢的一致性是无知者的心魔
 
