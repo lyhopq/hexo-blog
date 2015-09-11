@@ -903,7 +903,7 @@ The naming convention for functions may be used instead in cases where the inter
   if greeting is True:
   ```
 
-- `Python`标准库不会使用函数注解，因为这会导致对一个特定的注解风格过早的承诺。反之，留给用户来发现和实验有用的注解风格。
+- `Python`标准库不使用函数注解，因为这会导致对一个特定的注解风格过早的承诺。反之，这块留给用户发现和实验有用的注解风格。
 
   *注解部分省略*
 
