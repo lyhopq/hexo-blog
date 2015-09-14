@@ -1,5 +1,5 @@
 title: 《Effective Modern C++》条款2
-tags: [C++11, 翻译]
+tags: [C++11]
 toc: false
 ---
 
