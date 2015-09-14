@@ -1,7 +1,7 @@
 title: Elements of Modern C++ Style
 date: 2015-06-26 13:45:28
-categories: [C/C++,翻译]
-tags: [C++11]
+categories: [C/C++]
+tags: [C++11,翻译]
 
 ---
 
