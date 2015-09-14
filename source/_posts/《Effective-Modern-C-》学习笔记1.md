@@ -1,7 +1,12 @@
 title: 《Effective Modern C++》条款1
-tags: [C++11]
 toc: false
+mathjax: false
+tags:
+  - C++11
+date: 2015-09-14 20:57:12
+categories:
 ---
+
 
 ## 条款1：理解模板类型推导(Understand template type deduction)
 
