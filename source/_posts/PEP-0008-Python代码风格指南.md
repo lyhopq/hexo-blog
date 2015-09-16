@@ -686,7 +686,7 @@ __version__ = "$Revision$"
 
 ## 编程建议
 
-- 代码不要不利于其它的`Python`实现（`PyPy`、`Jython`、`IronPython`、`Cython`、`Psyco`等等）。
+- 代码不要不利于其它的`Python`实现（`PyPy`, `Jython`, `IronPython`, `Cython`, `Psyco`等等）。
 
   例如，不要依赖`CPython`的，形如`a += b`或`a = a + b`这样的语句，高效的就地字符串连接现实。这一优化即使是在`CPython`中也很脆弱（它只能用于某些类型），并且在那些没有使用引用计数(refcounting)的实现中根本就不存在。对于性能比较敏感的库中，应该使用`''.join()`的形式。它会确保在不同的实现中连接都会在线性时间内完成。
 
