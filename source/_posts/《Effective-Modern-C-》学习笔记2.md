@@ -1,7 +1,12 @@
 title: 《Effective Modern C++》条款2
-tags: [C++11]
 toc: false
+mathjax: false
+tags:
+  - C++11
+date: 2015-09-17 16:54:06
+categories:
 ---
+
 
 ## 条款2：理解`auto`类型推导(Understand `auto` type deduction)
 
@@ -26,9 +31,8 @@ f(expr);
 - 情况2：类型说明符是一个万能引用(Universal Reference)
 - 情况3：类型说明符既不是指针也不是引用
 
-这三种情况于[Item 1][Item 1]中的三种情况一一对应。
+这三种情况于[条款1][Item 1]中的三种情况一一对应。
 
-例：
 ```C++
 auto x = 27;           // x is int
 const auto cx = x;     // cx is const int
@@ -50,7 +54,6 @@ auto& func2 = someFunc;  // void (&)(int, double)
 **`auto`类型推导和模板类型推导的不同之处在于：**
     如果一个`auto`声明的变量使用*花括号初始化*，其推断的类型是一个`std::initializer_list`的实例（模板实例）。但，如果把该*花括号初始化*传入到相应的模板中，类型推断将会失败，代码不会通过编译。
 
-例：
 ```C++
 auto x = {11, 23, 9};   // x is std::initializer_list<int>
 // 或
@@ -64,7 +67,6 @@ f({11, 23, 9})         // 错误，不能推断出T
 
 不过，可以指定模板的`param`是一个`std::initializer_list<T>`，模板类型推断就能推断出`T`。
 
-例：
 ```C++
 template<typename T>
 void f(std::initializer_list<T> initList);
@@ -75,7 +77,6 @@ f({11, 23, 9});  // T is int
 **对于`C++14`，还有一点应该注意的是：**
     `auto`作为函数返回值和`lambda`的参数声明时，应该使用模板类型推导，而不是`auto`类型推导。因此，下面的示例将不会通过编译。
 
-例：
 ```C++
 auto createInitList()
 {

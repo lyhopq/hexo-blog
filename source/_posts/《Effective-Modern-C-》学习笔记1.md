@@ -33,7 +33,6 @@ f(expr);  // call f with some expression
   1. 忽略`expr`的类型的引用或指针部分（即去掉`&`或`*`）
   2. 然后，模式匹配`expr`的类型和`ParamType`来获得`T`
 
-  例1：
   ```C++
   template<typename T>
   void f(T& param);    // param is a reference
@@ -57,7 +56,6 @@ f(expr);  // call f with some expression
   f(someFunc); // T is void (*)(int, double)
   ```
 
-  例2：
   ```C++
   template<typename T>
   void f(const T& param);   // param is now a ref-to-const
@@ -76,7 +74,6 @@ f(expr);  // call f with some expression
   - 如果`expr`是一个左值(lvalue)，`T`和`ParamType`都被推导成左值引用。
   - 如果`expr`是一个右值(rvalue)，使用一般的推导规则（情况1中所示）。
 
-  例：
   ```C++
   template<typename T>
   void f(T&& param);    // param is now a unicersal reference
@@ -97,7 +94,6 @@ f(expr);  // call f with some expression
   1. 忽略`expr`类型的引用部分
   2. 忽略`expr`类型的`const`或`volatile`
 
-  例：
   ```C++
   template<typename T>
   void f(T param);     // param is passed by value
