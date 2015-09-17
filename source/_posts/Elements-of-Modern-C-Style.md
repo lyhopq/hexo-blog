@@ -145,7 +145,7 @@ for(auto d: v) {
 }
 ```
 
-## Nonmenber begin and end
+## Nonmember begin and end
 
 总是使用非成员的`begin(x)`和`end(x)`（而不是`x.begin()`和`x.end()`）。因为`begin(x)`和`end(x)`是可扩展的，可以和所有的容器类型（甚至是数组）一起使用，而且不仅仅是容器，还包括那些遵循`STL`风格，实现了`x.begin()`和`x.end()`成员函数的类型。
 
