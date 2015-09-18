@@ -37,6 +37,8 @@ vector<int> v;           // decltype(v) is vector<int>
 if (v[0] == 0) ...       // decltype(v[0]) is int&
 ```
 
+<!-- more -->
+
 在`C++11`中，`decltype`主要被用在那些其函数返回值依赖于其参数类型的函数模板声明中。
 
 ```C++
