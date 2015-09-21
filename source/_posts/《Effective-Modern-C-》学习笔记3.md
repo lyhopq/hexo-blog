@@ -1,7 +1,12 @@
 title: 《Effective Modern C++》条款3
-tags: [C++11]
 toc: false
+mathjax: false
+tags:
+  - C++11
+date: 2015-09-21 16:12:54
+categories:
 ---
+
 
 ## 条款3：理解`decltype`(Understand `decltype`)
 
